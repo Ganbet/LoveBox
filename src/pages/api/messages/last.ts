@@ -4,7 +4,10 @@ import { NextApiRequest, NextApiResponse } from 'next';
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
     const messages = await prisma.message.findMany({
-      take: req.query.take ? Number(req.query.take) : undefined,
+      orderBy: {
+        createdAt: 'desc',
+      },
+      take: 1,
     });
     res.status(200).json(messages?.[0]?.message || '');
   }
