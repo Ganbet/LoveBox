@@ -8,8 +8,24 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         createdAt: 'desc',
       },
       take: 1,
+      where: {
+        sentAt: null,
+      },
     });
-    res.status(200).json(messages?.[0]?.message || '');
+    const lastRecord = messages?.[0];
+
+    if (lastRecord) {
+      await prisma.message.update({
+        data: {
+          sentAt: new Date(),
+        },
+        where: {
+          id: lastRecord.id,
+        },
+      });
+    }
+
+    res.status(200).json(lastRecord?.message || '');
   }
 };
 
