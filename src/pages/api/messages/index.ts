@@ -11,6 +11,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(200).json({ message: 'Message sent' });
   } else if (req.method === 'GET') {
     const messages = await prisma.message.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
       take: req.query.take ? Number(req.query.take) : undefined,
     });
     res.status(200).json(messages);

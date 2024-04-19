@@ -57,6 +57,7 @@ export default function MessageView() {
             <th>Message</th>
             <th>Lida em</th>
             <th>Enviada em</th>
+            <th>Criada em</th>
           </tr>
         </thead>
         <tbody>
@@ -65,11 +66,24 @@ export default function MessageView() {
               <td>{message.id}</td>
               <td>{message.message}</td>
               <td>
-                {message.readAt?.toISOString()
-                  ? new Date(message.readAt).toLocaleDateString()
+                {message?.readAt
+                  ? `${new Date(message.readAt).toLocaleDateString()} ${new Date(
+                      message.readAt,
+                    ).toLocaleTimeString()}`
                   : '---'}
               </td>
-              <td>{new Date(message.createdAt).toLocaleDateString()}</td>
+              <td>
+                {message?.sentAt
+                  ? `${new Date(message.sentAt).toLocaleDateString()} ${new Date(
+                      message.sentAt,
+                    ).toLocaleTimeString()}`
+                  : '---'}
+              </td>
+              <td>
+                {`${new Date(message.createdAt).toLocaleDateString()} ${new Date(
+                  message.createdAt,
+                ).toLocaleTimeString()}`}
+              </td>
             </tr>
           ))}
         </tbody>
