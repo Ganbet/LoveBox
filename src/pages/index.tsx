@@ -56,7 +56,7 @@ export default function MessageView() {
             <th>ID</th>
             <th>Message</th>
             <th>Lida em</th>
-            <th>Enviada em</th>
+            <th>Recebida em</th>
             <th>Criada em</th>
           </tr>
         </thead>
